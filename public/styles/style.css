@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#site-content{
+    text-align: center;
+}
+
+#site-content h1 {
+    margin: 40px;
+    font-size: 60px;
+}
+
+#site-content button{
+    margin: 20px;
+    font-size: 30px;
+}
+
+header {
+    background-color:blue;
+    color: white;
+}
+
+header li {
+    display: inline-block;
+}
+
+
+nav {
+    /* display: inline-block; */
+    text-align: center;
+}
+
+nav li a:hover {
+    background-color: slategray;
+    cursor:pointer;
+}
+
+   
+nav ul li a {
+    padding: 20px;
+    display: block;
+    color: white;
+    text-decoration: none;
+}
