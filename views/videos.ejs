@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('partials/header') %>
+<%- include('partials/header') %>
+<head>
+    <link rel="stylesheet" href="styles/video.css">
     <title>Videot - Sakila</title>
+</head>    
 <body>
     <div id="site-content">
         <h1>Videot</h1>
+
+        <div class="container">
+            <div class="filter-nav">
+                <span></span>
+                <span>Kategoria:</span>
+                <select>
+                    <option value="test">test1</option>
+                    <option value="test">test2</option>
+                    <option value="test">test3</option>
+                </select>
+                <span></span>
+            </div>
+            <div class="video-container">
+                <div class="video-item"></div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
