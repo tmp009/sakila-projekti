@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template-rows: 0.1fr 1fr;
+    grid-template-rows: 10em 1fr;
 }
 
 .filter-nav {
