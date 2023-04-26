@@ -14,8 +14,23 @@ app.get("/", (req, res) => {
     res.render("home", {});
 });
 
-app.get("/videot", (req, res) => {
-    res.render("videos", {});
+app.get("/videot", async (req, res) => {
+    try {
+        let page = req.query.page;
+        let category = req.query.category;
+
+        if (typeof page === 'undefined') page = 0;
+
+        if (typeof category === 'undefined') {
+            res.render("videos", {videos:await getMovie(Number(page) * 10)});
+        }
+        else {
+            res.render("videos", {videos:await getMovieByCategory(category, Number(page) * 10)});
+        }
+
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 });
 
 

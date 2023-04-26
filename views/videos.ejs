@@ -3,6 +3,7 @@
 <%- include('partials/header') %>
 <head>
     <link rel="stylesheet" href="/styles/video.css">
+    <script src="/js/video.js" defer></script>
     <title>Videot - Sakila</title>
 </head>    
 <body>
@@ -13,19 +14,14 @@
             <div class="filter-nav">
                 <span></span>
                 <span>Kategoria:</span>
-                <select>
-                    <option>Kaikki</option>
-                    <option value="Sci-Fi">Sci-Fi</option>
-                    <option value="Drama">Draama</option>
-                    <option value="Animation">Animaatio</option>
-                </select>
+                <%- include('partials/options') %>
                 <span></span>
             </div>
             <div class="video-container">
                 <% videos.forEach(video => { %>
                     <div class="video-item">
-                            <%- include('partials/videoItemContent', {id:video.film_id, name:video.title, 
-                                category:video.category, description:video.description, price:video.price}) %>
+                        <%- include('partials/videoItemContent', {id:video.film_id, name:video.title, 
+                            category:video.category, description:video.description, price:String(video.price).replace('.', ',')}) %>
                     </div>
                 <% }) %>
                 </div>

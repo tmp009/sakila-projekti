@@ -17,7 +17,7 @@ function getMovieByCategory(category, page) {
         left outer join category as c on c.category_id = fc.category_id
         where fc.film_id=f.film_id and upper(c.name)=upper(?)
         order by f.title ASC
-        limit 30
+        limit 10
         offset ?;`, [category, page], (err, rows, cols) => {
             if (err) {
                 reject(err.message)
@@ -46,7 +46,7 @@ function getMovie(page) {
         left outer join category as c on c.category_id = fc.category_id
         where fc.film_id=f.film_id
         order by f.title ASC
-        limit 30
+        limit 10
         offset ?;`, [page], (err, rows, cols) => {
             if (err) {
                 reject(err.message)

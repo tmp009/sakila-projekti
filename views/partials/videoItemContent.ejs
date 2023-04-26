@@ -1,8 +1,33 @@
+<% 
+const fiCategories = {
+    action:"Toiminta",
+    "sci-fi":"Sci-Fi",
+    drama:"Draama",
+    animation:"Animaatio",
+    children:"Lasten",
+    classics:"Klasikko",
+    comedy:"Komedia",
+    documentary:"Dokmentti",
+    family:"Perhe",
+    foreign:"Ulkomaa",
+    games:"Peli",
+    horror:"Kauho",
+    music:"Musikki",
+    new:"Uusi",
+    sports:"Urheilu",
+    travel:"Matkustaminen"
+};
+let translated = fiCategories[category.toLowerCase()];
+%>
+
+<% if (!translated) { 
+    translated=category;
+} %>
 <div class="video-content">
     <span class="video-name"><%= name %></span>
-    <span class="video-category"><%= category %></span>
+    <span class="video-category"><%=translated%></span>
     <span><%= description %></span>
-    <span class="video-price"><%= price %></span>
+    <span class="video-price"><%= price %> €</span>
     <br>
     <span class="video-info-btn"><a href="/videot/<%= id %>" target="_self"><button>Lisää tietoa</button></a></span>
 </div>
