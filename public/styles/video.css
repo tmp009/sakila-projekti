@@ -1,5 +1,6 @@
 .container {
     display: grid;
+    grid-template-rows: 0.1fr 1fr;
 }
 
 .filter-nav {
@@ -9,7 +10,46 @@
 }
 
 .filter-nav > select {
-    height: 30px;
+    height: 25px;
     border-style:ridge;
 }
 
+.video-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 300px;
+    max-width: 900px;
+}
+
+.video-item{
+    background-color: white;
+    border-style: groove;
+    border-color: black;
+    margin-bottom: 20px;
+}
+
+.video-content{
+    display: grid;
+    text-align: left;
+    margin: 25px; 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+}
+
+.video-name{
+    padding-bottom: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.video-category, .video-price, .video-info-btn{
+    text-align: right;
+}
+
+.video-price{
+    font-size: 30px;
+}
+
+.video-info-btn{
+    margin-top: 14px;
+}

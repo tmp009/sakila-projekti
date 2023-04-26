@@ -2,7 +2,7 @@
 <html lang="en">
 <%- include('partials/header') %>
 <head>
-    <link rel="stylesheet" href="styles/video.css">
+    <link rel="stylesheet" href="/styles/video.css">
     <title>Videot - Sakila</title>
 </head>    
 <body>
@@ -14,14 +14,21 @@
                 <span></span>
                 <span>Kategoria:</span>
                 <select>
-                    <option value="test">test1</option>
-                    <option value="test">test2</option>
-                    <option value="test">test3</option>
+                    <option>Kaikki</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Drama">Draama</option>
+                    <option value="Animation">Animaatio</option>
                 </select>
                 <span></span>
             </div>
             <div class="video-container">
-                <div class="video-item"></div>
+                <% videos.forEach(video => { %>
+                    <div class="video-item">
+                            <%- include('partials/videoItemContent', {id:video.film_id, name:video.title, 
+                                category:video.category, description:video.description, price:video.price}) %>
+                    </div>
+                <% }) %>
+                </div>
             </div>
         </div>
     </div>
