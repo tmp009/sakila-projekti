@@ -1,5 +1,5 @@
 const {host, port} = require("./config.json")
-const { getMovieByCategory, getMovie } = require('./tietovarasto.js')
+const { getMovieByCategory, getMovie, getMovieById } = require('./tietovarasto.js')
 const path = require("path")
 
 const express = require("express");
@@ -33,6 +33,18 @@ app.get("/videot", async (req, res) => {
     }
 });
 
+app.get('/videot/:id', async (req,res)=>{
+    try {
+        let id = req.params.id;
+
+        // if (typeof id === 'undefined') throw new Error('');
+        const video = await getMovieById(+id)
+        res.render('info', {video:video[0]})
+
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+})
 
 app.get('/api/videot', async (req, res)=>{
     try {
