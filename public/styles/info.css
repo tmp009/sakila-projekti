@@ -1,0 +1,22 @@
+.top-data{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 1em;
+    column-gap: 20em;
+    font-size: 2rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.plot h1{
+    text-align: left;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.plot p{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+    padding-left: 45px;
+    width: 85%;
+    font-size: 1.5rem;
+}

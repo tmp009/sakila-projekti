@@ -2,11 +2,23 @@
 <html lang="en">
 <%- include('partials/header') %>
 <head>
+    <link rel="stylesheet" href="/styles/info.css">
     <title>Videot - Sakila</title>
 </head>    
 <body>
     <div id="site-content">
         <h1><%= video.title %></h1>
+
+        <div class="top-data">
+            <span>Kategori: <%- include('partials/category', {category:video.category}) %> </span>
+            <span>Hinta: <%= String(video.price).replace('.', ',') %> €</span>
+            <span>Vuosi: <%= video.year %></span>
+            <span>Kieli: <%= video.language %></span>
+        </div>
+        <div class="plot">
+            <h1>Juoni</h1>
+            <p><%= video.description %></p>
+        </div>
     </div>
 </body>
 </html>

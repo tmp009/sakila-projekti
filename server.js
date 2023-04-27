@@ -39,7 +39,12 @@ app.get('/videot/:id', async (req,res)=>{
 
         // if (typeof id === 'undefined') throw new Error('');
         const video = await getMovieById(+id)
-        res.render('info', {video:video[0]})
+
+        if (!video.length) res.status(404).send('Ei löytyy');
+        else{
+            res.render('info', {video:video[0]})
+        }
+
 
     } catch (error) {
         res.status(400).send(error.message);
