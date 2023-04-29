@@ -1,0 +1,17 @@
+<% 
+const fiLangs = {
+    english:"englanti",
+    italian:"italia",
+    japanese:"japani",
+    mandarin:"mandariini",
+    french:"ranska",
+    german:"saksa"
+};
+let translated = fiLangs[language.toLowerCase()];
+
+if (!translated) { 
+    translated=language;
+}
+%>
+
+<%=translated%>

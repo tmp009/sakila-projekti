@@ -13,7 +13,7 @@
             <span>Kategori: <%- include('partials/category', {category:video.category}) %> </span>
             <span>Hinta: <%= String(video.price).replace('.', ',') %> €</span>
             <span>Vuosi: <%= video.year %></span>
-            <span>Kieli: <%= video.language %></span>
+            <span>Kieli: <%- include('partials/language', {language:video.language}) %> </span>
         </div>
         <div class="plot">
             <h1>Juoni</h1>
