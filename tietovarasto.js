@@ -1,22 +1,13 @@
 let dbconfig = require("./dbconfig.json")
 let mysql = require("mysql")
+const sqlQuery = require('./sql.json')
 
 function getMovieByCategory(category, page) {
     return new Promise((resolve, reject)=> {
         let con = mysql.createConnection(dbconfig);
         con.connect();
 
-        con.query(`select f.film_id, 
-        f.title, 
-        c.name as category,
-        description,
-        f.replacement_cost as price
-        from film as f, film_category as fc 
-        left outer join category as c on c.category_id = fc.category_id
-        where fc.film_id=f.film_id and upper(c.name)=upper(?)
-        order by f.title ASC
-        limit 10
-        offset ?;`, [category, page], (err, rows, cols) => {
+        con.query(sqlQuery.getMovieByCategory.join(' '), [category, page], (err, rows, cols) => {
             if (err) {
                 reject(err.message)
             }
@@ -24,7 +15,6 @@ function getMovieByCategory(category, page) {
             con.end();
             resolve(rows);
         })
-    
     })
 }
 
@@ -33,17 +23,7 @@ function getMovie(page) {
         let con = mysql.createConnection(dbconfig);
         con.connect();
 
-        con.query(`select f.film_id, 
-        f.title, 
-        c.name as category,
-        description,
-        f.replacement_cost as price
-        from film as f, film_category as fc 
-        left outer join category as c on c.category_id = fc.category_id
-        where fc.film_id=f.film_id
-        order by f.title ASC
-        limit 10
-        offset ?;`, [page], (err, rows, cols) => {
+        con.query(sqlQuery.getMovie.join(' '), [page], (err, rows, cols) => {
             if (err) {
                 reject(err.message)
             }
@@ -59,24 +39,7 @@ function getMovieById(id) {
         let con = mysql.createConnection(dbconfig);
         con.connect();
 
-        con.query(`
-            select 
-                f.film_id, 
-                f.title, 
-                c.name as category,
-                description,
-                f.replacement_cost as price,
-                release_year as year,
-                lang.name as language
-            from 
-                film as f, 
-                film_category as fc, 
-                language as lang, 
-                category as c
-            where 
-                f.film_id=? and fc.film_id=f.film_id and lang.language_id=f.language_id and c.category_id=fc.category_id
-            limit 1
-    `, id, (err, rows, cols) => {
+        con.query(sqlQuery.getMovieById.join(' '), id, (err, rows, cols) => {
             if (err) {
                 reject(err.message)
             }
@@ -100,24 +63,7 @@ function searchMovie(page, term, category='') {
         
         con.connect();
 
-        con.query(`
-        select 
-            f.film_id, 
-            f.title, 
-            c.name as category,
-            description,
-            f.replacement_cost as price
-        from 
-            film as f, 
-            film_category as fc 
-        left outer join 
-            category as c on c.category_id = fc.category_id
-        where 
-            (fc.film_id=f.film_id) and (f.title like ? or description like ?) and (upper(c.name)=upper(?) or ?='')
-        order by f.title ASC
-        limit 10
-        offset ?;
-    `, [likeString, likeString, category, category, page], (err, rows, cols) => {
+        con.query(sqlQuery.searchMovie.join(' '), [likeString, likeString, category, category, page], (err, rows, cols) => {
             if (err) {
                 reject(err.message)
             }
@@ -127,4 +73,53 @@ function searchMovie(page, term, category='') {
         });
     });
 }
-module.exports = {getMovieByCategory, getMovie, getMovieById, searchMovie};
+
+function getMovieCount(category) {
+    return new Promise((resolve, reject)=> {
+        let con = mysql.createConnection(dbconfig);
+        let query;
+        con.connect();
+
+        if (typeof category !== 'undefined') query = sqlQuery.moveCountCategory.join(' ');
+        else {
+            query = sqlQuery.movieCount.join(' ');
+        }
+
+        con.query(query, category, (err, rows, cols) => {
+            if (err) {
+                reject(err.message)
+            }
+
+            con.end();
+            resolve(rows);
+        })
+    })
+}
+
+function getMovieCountSearch(term, category='') {
+    return new Promise((resolve, reject)=> {
+        let con = mysql.createConnection(dbconfig);
+        con.connect();
+
+        let likeString;
+
+        if (term.length > 2) {
+            likeString = '%' + term + '%';
+        } else {
+            likeString = ''
+        }
+
+        con.query(sqlQuery.moveCountSearch.join(' '), [likeString, likeString, category, category], (err, rows, cols) => {
+            if (err) {
+                reject(err.message)
+            }
+
+            con.end();
+            resolve(rows);
+        })
+    })
+}
+
+module.exports = {getMovieByCategory, getMovie, getMovieById,
+                searchMovie, getMovieCount, getMovieCountSearch
+                };
