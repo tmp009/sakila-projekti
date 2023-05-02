@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 document.getElementById('search-bar').querySelector('input').addEventListener('keypress', (e)=>{
     if (e.key !== 'Enter') return;
+
     const search = document.getElementById('search-bar').querySelector('input').value;
+    if (search.length != 0 && search.length < 3) return;
+    
     let url = new URLSearchParams(window.location.search);
     url.delete('page');
 
