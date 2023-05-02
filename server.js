@@ -35,7 +35,6 @@ app.get("/videot", async (req, res) => {
             videos = await getMovieByCategory(category, offset);
             count = await getMovieCount(category);
         } else {
-            console.log(offset)
             videos = await getMovie(offset);
             count = await getMovieCount(category);
         }
