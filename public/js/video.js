@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 document.querySelector('select').addEventListener('change', (e)=>{
     const selected = document.querySelector('select').value;
     let url = new URLSearchParams(window.location.search);
+    url.delete('page');
+    
     if (selected==='Kaikki') url.delete('category');
     else {
         url.set('category', selected);
