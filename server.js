@@ -1,5 +1,6 @@
 const {host, port} = require("./config.json")
-const { getMovieByCategory, getMovie, getMovieById, searchMovie } = require('./tietovarasto.js')
+const { getMovieByCategory, getMovie, getMovieById, 
+        searchMovie, getMovieCount, getMovieCountSearch } = require('./tietovarasto.js')
 const path = require("path")
 
 const express = require("express");
@@ -16,29 +17,35 @@ app.get("/", (req, res) => {
 
 app.get("/videot", async (req, res) => {
     try {
-        let page = req.query.page;
+        let page = Number(req.query.page);
+        let videos;
+        let count;
         const category = req.query.category;
         const term = req.query.term
         
-        if (typeof page === 'undefined') page = 0;
+        if (!page) page = 0;
+        else { page = page - 1 }
         
+        const offset = page*10;
+
         if (typeof term !== 'undefined') {
-            if (typeof category !== 'undefined') {
-                res.render("videos", {videos:await searchMovie(Number(page) * 10, term, category)})
-            } else {
-                res.render("videos", {videos:await searchMovie(Number(page) * 10, term)})
-            }
-            return
+            videos = await searchMovie(offset, term, category);
+            count = await getMovieCountSearch(term, category);
+        } else if (typeof category !== 'undefined') {
+            videos = await getMovieByCategory(category, offset);
+            count = await getMovieCount(category);
+        } else {
+            console.log(offset)
+            videos = await getMovie(offset);
+            count = await getMovieCount(category);
         }
 
-        if (typeof category === 'undefined') {
-            res.render("videos", {videos:await getMovie(Number(page) * 10)});
-        }
-        else {
-            res.render("videos", {videos:await getMovieByCategory(category, Number(page) * 10)});
-        }
+        res.render("videos", {videos:videos,
+                count:count,
+                page:page});
 
     } catch (error) {
+        console.log(error)
         res.status(400).send(error.message);
     }
 });
@@ -47,7 +54,6 @@ app.get('/videot/:id', async (req,res)=>{
     try {
         let id = req.params.id;
 
-        // if (typeof id === 'undefined') throw new Error('');
         const video = await getMovieById(+id)
 
         if (!video.length) res.status(404).send('Ei löytyy');
