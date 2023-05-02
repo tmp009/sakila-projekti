@@ -51,7 +51,7 @@ function getMovie(page) {
             con.end();
             resolve(rows);
         });
-    })
+    });
 }
 
 function getMovieById(id) {
@@ -86,4 +86,45 @@ function getMovieById(id) {
         });
     })
 }
-module.exports = {getMovieByCategory, getMovie, getMovieById}
+
+function searchMovie(page, term, category='') {
+    return new Promise((resolve, reject)=> {
+        let con = mysql.createConnection(dbconfig);
+        let likeString;
+
+        if (term.length > 2) {
+            likeString = '%' + term + '%';
+        } else {
+            likeString = ''
+        }
+        
+        con.connect();
+
+        con.query(`
+        select 
+            f.film_id, 
+            f.title, 
+            c.name as category,
+            description,
+            f.replacement_cost as price
+        from 
+            film as f, 
+            film_category as fc 
+        left outer join 
+            category as c on c.category_id = fc.category_id
+        where 
+            (fc.film_id=f.film_id) and (f.title like ? or description like ?) and (upper(c.name)=upper(?) or ?='')
+        order by f.title ASC
+        limit 10
+        offset ?;
+    `, [likeString, likeString, category, category, page], (err, rows, cols) => {
+            if (err) {
+                reject(err.message)
+            }
+
+            con.end();
+            resolve(rows);
+        });
+    });
+}
+module.exports = {getMovieByCategory, getMovie, getMovieById, searchMovie};
