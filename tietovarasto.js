@@ -80,7 +80,7 @@ function getMovieCount(category) {
         let query;
         con.connect();
 
-        if (typeof category !== 'undefined') query = sqlQuery.moveCountCategory.join(' ');
+        if (typeof category === 'string') query = sqlQuery.moveCountCategory.join(' ');
         else {
             query = sqlQuery.movieCount.join(' ');
         }
@@ -91,7 +91,7 @@ function getMovieCount(category) {
             }
 
             con.end();
-            resolve(rows);
+            resolve(rows[0].entries);
         })
     })
 }
@@ -115,7 +115,7 @@ function getMovieCountSearch(term, category='') {
             }
 
             con.end();
-            resolve(rows);
+            resolve(rows[0].entries);
         })
     })
 }
