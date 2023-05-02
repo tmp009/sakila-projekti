@@ -1,0 +1,81 @@
+{
+    "getMovieByCategory":[
+       "select f.film_id,",
+       "f.title,",
+        "c.name as category,",
+        "description,",
+        "f.replacement_cost as price",
+        "from film as f, film_category as fc",
+        "left outer join category as c on c.category_id = fc.category_id",
+        "where fc.film_id=f.film_id and upper(c.name)=upper(?)",
+        "order by f.title ASC",
+        "limit 10",
+        "offset ?"
+    ],
+    "getMovie":[
+        "select f.film_id,",
+        "f.title, ",
+        "c.name as category,",
+        "description,",
+        "f.replacement_cost as price",
+        "from film as f, film_category as fc ",
+        "left outer join category as c on c.category_id = fc.category_id",
+        "where fc.film_id=f.film_id",
+        "order by f.title ASC",
+        "limit 10",
+        "offset ?"
+    ],
+    "getMovieById":[
+        "select ",
+        "f.film_id, ",
+        "f.title, ",
+        "c.name as category,",
+        "description,",
+        "f.replacement_cost as price,",
+        "release_year as year,",
+        "lang.name as language",
+        "from",
+        "film as f, ",
+       " film_category as fc,",
+        "language as lang,",
+        "category as c",
+        "where", 
+        "f.film_id=? and fc.film_id=f.film_id and lang.language_id=f.language_id and c.category_id=fc.category_id",
+        "limit 1"
+    ],
+    "searchMovie":[
+        "select", 
+        "f.film_id,", 
+        "f.title,",
+        "c.name as category,",
+        "description,",
+        "f.replacement_cost as price",
+        "from", 
+        "film as f,", 
+        "film_category as fc", 
+        "left outer join ",
+        "category as c on c.category_id = fc.category_id",
+        "where",
+        "(fc.film_id=f.film_id) and (f.title like ? or description like ?) and (upper(c.name)=upper(?) or ?='')",
+        "order by f.title ASC",
+        "limit 10",
+        "offset ?"
+    ],
+    "movieCount":[
+        "select COUNT(*) as entries",
+        "from film as f, film_category as fc ",
+        "where fc.film_id=f.film_id"
+    ],
+    "moveCountCategory":[
+        "select COUNT(*) as entries",
+        "from film as f, film_category as fc ",
+        "left outer join category as c on c.category_id = fc.category_id",
+        "where fc.film_id=f.film_id and upper(c.name)=upper(?)"
+    ],
+    "moveCountSearch":[
+        "select COUNT(*) as entries",
+        "from film as f, film_category as fc ",
+        "left outer join category as c on c.category_id = fc.category_id",
+        "where (fc.film_id=f.film_id) and (f.title like ? or description like ?) and (upper(c.name)=upper(?) or ?='')"
+    ]
+}
