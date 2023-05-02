@@ -1,0 +1,22 @@
+<div class="page-nav">
+    <% const p = Number(page)+1 %>
+    <% const maxPage = Math.ceil(count/10) %>
+
+    <% if(p <= 1){ %>
+        <button disabled>&xlArr;</button>
+    <% } else{ %>  
+        <button value="-1">&xlArr;</button>
+    <% } %>
+    
+    <% if(!count){ %>
+        <span>1 / 1</span>
+    <% } else{ %>  
+        <span><%= p %> / <%= maxPage %></span>
+    <% } %>
+
+    <% if(p >= maxPage){ %>
+        <button disabled>&xrArr;</button>
+    <% } else{ %>  
+        <button value="1">&xrArr;</button>
+    <% } %>
+</div>

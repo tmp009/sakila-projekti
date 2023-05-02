@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="/styles/video.css">
     <script src="/js/video.js" defer></script>
+    <script src="/js/search.js" defer></script>
     <title>Videot - Sakila</title>
 </head>    
 <body>
@@ -12,7 +13,9 @@
 
         <div class="container">
             <div class="filter-nav">
-                <span></span>
+                <span id="search-bar">
+                    <input type="text" size="57" placeholder="Syötä hakusana" height="50">
+                </span>
                 <span>Kategoria:</span>
                 <%- include('partials/options') %>
                 <span></span>
@@ -26,6 +29,7 @@
                 <% }) %>
                 </div>
             </div>
+            <%- include('partials/pageNav', {page:page, count:count}) %>
         </div>
     </div>
 </body>

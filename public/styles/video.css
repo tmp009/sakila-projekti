@@ -5,7 +5,7 @@
 
 .filter-nav {
     display: grid;
-    grid-template-columns: 4fr 0.5fr 1fr 0.5fr;
+    grid-template-columns: 3fr 0.5fr 1fr 0.5fr;
     
 }
 
@@ -52,4 +52,14 @@
 
 .video-info-btn{
     margin-top: 14px;
+}
+
+.page-nav {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.page-nav button {
+    width: 70px;
+    height: 20px;
 }
