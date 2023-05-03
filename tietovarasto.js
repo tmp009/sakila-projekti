@@ -103,7 +103,7 @@ function getMovieCountSearch(term, category='') {
 
         let likeString;
 
-        if (term.length > 3) {
+        if (term.length >= 3) {
             likeString = '%' + term + '%';
         } else {
             likeString = ''
