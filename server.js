@@ -44,7 +44,6 @@ app.get("/videot", async (req, res) => {
                 page:page});
 
     } catch (error) {
-        console.log(error)
         res.status(400).send(error.message);
     }
 });
