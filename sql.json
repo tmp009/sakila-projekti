@@ -77,5 +77,32 @@
         "from film as f, film_category as fc ",
         "left outer join category as c on c.category_id = fc.category_id",
         "where (fc.film_id=f.film_id) and (f.title like ? or description like ?) and (upper(c.name)=upper(?) or ?='')"
+    ],
+    "actorNameSearch":[
+        "select actor_id, first_name, last_name  from actor" ,
+        "where (CONCAT(first_name, ' ', last_name) like ?)",
+        "limit 10 ",
+        "offset ?;"
+    ],
+    "actorNameSearchCount":[
+        "select COUNT(*) as entries  from  actor where (CONCAT(first_name, ' ', last_name) like ?)"
+    ],
+    "getMovieByActorId":[
+        "select film_actor.film_id, film.title, category.name as category,",
+        "film.description,",
+        "film.replacement_cost as price",
+        "from film_actor, film, category, film_category",
+        "where film_actor.actor_id=? and film_actor.film_id=film.film_id", 
+        "and category.category_id=film_category.category_id and (film_category.film_id=film.film_id)",
+        "and (upper(category.name)=upper(?) or ?='')",
+        "limit 10",
+        "offset ?"
+    ],
+    "actorMovieCount":[
+        "select COUNT(*) as entries",
+        "from film_actor, film, category, film_category",
+        "where film_actor.actor_id=? and film_actor.film_id=film.film_id", 
+        "and category.category_id=film_category.category_id and (film_category.film_id=film.film_id)",
+        "and (upper(category.name)=upper(?) or ?='')"
     ]
 }

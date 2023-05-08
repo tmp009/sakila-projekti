@@ -117,9 +117,92 @@ function getMovieCountSearch(term, category='') {
             con.end();
             resolve(rows[0].entries);
         })
-    })
+    });
+}
+
+function actorNameSearch(term, page) {
+    return new Promise((resolve, reject)=> {
+        let con = mysql.createConnection(dbconfig);
+        con.connect();
+
+        let likeString;
+
+        if (term.length >= 3) {
+            likeString = '%' + term + '%';
+        } else {
+            likeString = ''
+        }
+
+        con.query(sqlQuery.actorNameSearch.join(' '), [likeString, page], (err, rows, cols) => {
+            if (err) {
+                reject(err.message)
+            }
+
+            con.end();
+            resolve(rows);
+        })
+    });
+}
+
+function actorNameSearchCount(term) {
+    return new Promise((resolve, reject)=> {
+        let con = mysql.createConnection(dbconfig);
+        con.connect();
+
+        let likeString;
+
+        if (term.length >= 3) {
+            likeString = '%' + term + '%';
+        } else {
+            likeString = ''
+        }
+
+        con.query(sqlQuery.actorNameSearchCount.join(' '), [likeString], (err, rows, cols) => {
+            if (err) {
+                reject(err.message)
+            }
+
+            con.end();
+            resolve(rows[0].entries);
+        })
+    });
+}
+
+function getMovieByActorId(id, page, category=''){
+    return new Promise((resolve, reject)=> {
+        let con = mysql.createConnection(dbconfig);
+
+        con.connect();
+
+        con.query(sqlQuery.getMovieByActorId.join(' '), [id, category, category, page], (err, rows, cols) => {
+            if (err) {
+                reject(err.message)
+            }
+
+            con.end();
+            resolve(rows);
+        });
+    });
+}
+
+function actorMovieCount(id, category='') {
+    return new Promise((resolve, reject)=> {
+        let con = mysql.createConnection(dbconfig);
+        con.connect();
+
+        con.query(sqlQuery.actorMovieCount.join(' '), [id, category, category], (err, rows, cols) => {
+            if (err) {
+                reject(err.message)
+            }
+
+            con.end();
+            resolve(rows[0].entries);
+        })
+    });
 }
 
 module.exports = {getMovieByCategory, getMovie, getMovieById,
-                searchMovie, getMovieCount, getMovieCountSearch
+                searchMovie, getMovieCount, getMovieCountSearch,
+                actorNameSearch, actorNameSearchCount, getMovieByActorId,
+                actorMovieCount
                 };
