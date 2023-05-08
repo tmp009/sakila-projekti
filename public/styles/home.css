@@ -2,3 +2,7 @@
     margin: 20px;
     font-size: 30px;
 }
+
+#site-content p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

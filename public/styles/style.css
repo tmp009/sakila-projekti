@@ -10,27 +10,27 @@ body{
 
 #site-content{
     text-align: center;
+    position: relative;
+    min-height: 100vh;
 }
 
 #site-content h1 {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 40px;
     font-size: 60px;
 }
 
 header {
-    background-color:blue;
+    background-color:#20aad8;
     color: white;
 }
 
 header li {
-    display: inline-block;
+    display: inline;
+    vertical-align: middle;
+    line-height: 0;
 }
 
-
-nav {
-    /* display: inline-block; */
-    text-align: center;
-}
 
 nav li a:hover {
     background-color: slategray;
@@ -40,7 +40,18 @@ nav li a:hover {
    
 nav ul li a {
     padding: 20px;
-    display: block;
     color: white;
     text-decoration: none;
+}
+
+
+footer{
+    text-align: center;
+    background-color: black;
+    color: white;
+    
+    padding: 10px;
+    width: 100%;
+    bottom: 0%;
+    position: fixed;
 }
