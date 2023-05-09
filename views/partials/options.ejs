@@ -1,4 +1,8 @@
-<select>
+<% if (isActor) { %>
+    <select disabled>
+<% } else { %>
+    <select>
+<% } %>
     <option>Kaikki</option>
     <option value="action">Toiminta</option>
     <option value="sci-fi">Sci-Fi</option>

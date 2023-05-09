@@ -1,0 +1,21 @@
+.actor-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 300px;
+    max-width: 900px;
+}
+
+.actor-item{
+    background-color: white;
+    border-style: groove;
+    border-color: black;
+    margin-bottom: 20px;
+}
+
+.actor-content{
+    display: grid;
+    text-align: left;
+    margin: 25px; 
+    grid-template-columns: 3fr 1fr;
+}

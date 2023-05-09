@@ -3,34 +3,39 @@
 <%- include('partials/header') %>
 <head>
     <link rel="stylesheet" href="/styles/video.css">
+    <link rel="stylesheet" href="/styles/actor.css">
     <script src="/js/video.js" defer></script>
     <script src="/js/search.js" defer></script>
-    <title>Videot - Sakila</title>
+    <% if (typeof name === 'string') { %>
+        <title><%= name %> - Sakila</title>
+    <% }  else { %> 
+        <title>Videot - Sakila</title> 
+    <% } %>
+    
 </head>    
 <body>
     <div id="site-content">
-        <h1>Videot</h1>
+        <% if (isActor) { %>
+            <h1>Näyttelijät</h1>
+        <% } else if (typeof name === 'string') {%> 
+            <h1><%= name %></h1>
+        <%} else { %>
+            <h1>Videot</h1>
+        <% } %>
 
         <div class="container">
-            <div class="filter-nav">
-                <span id="search-bar">
-                    <input type="text" size="57" placeholder="Syötä hakusana" height="50">
-                </span>
-                <span>Kategoria:</span>
-                <%- include('partials/options') %>
-                <span></span>
-            </div>
-            <div class="video-container">
-                <% videos.forEach(video => { %>
-                    <div class="video-item">
-                        <%- include('partials/videoItemContent', {id:video.film_id, name:video.title, 
-                            category:video.category, description:video.description, price:String(video.price).replace('.', ',')}) %>
-                    </div>
-                <% }) %>
-                </div>
-            </div>
+            <%- include('partials/filterNav', {isActor:isActor}) %>
+            <% if (!isActor) { %>
+                <%- include('partials/videoContainer', {videos:videos}) %>
+            <% } else { %>
+                <% if (!actors.lenght) { %>
+                    <% count=0 %>
+                <% } %>
+                <%- include('partials/actorContainer', {actors:actors}) %>
+            <% } %>
             <%- include('partials/pageNav', {page:page, count:count}) %>
         </div>
     </div>
 </body>
+<%- include('partials/footer') %>
 </html>

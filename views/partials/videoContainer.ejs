@@ -1,0 +1,8 @@
+<div class="video-container">
+    <% videos.forEach(video => { %>
+        <div class="video-item">
+            <%- include('videoItemContent', {id:video.film_id, name:video.title, 
+                category:video.category, description:video.description, price:String(video.price).replace('.', ',')}) %>
+        </div>
+    <% }) %>
+</div>

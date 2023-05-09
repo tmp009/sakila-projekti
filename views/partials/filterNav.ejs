@@ -1,0 +1,15 @@
+<div class="filter-nav">
+    <span id="search-bar">
+        <div class="dropdown-box">
+            <button class="dropdown-btn">&wedgeq;</button>
+            <div class="dropdown-content">
+                <label><input type="radio" name="search-type" data-type="0" checked> Videot</label>
+                <label><input type="radio" name="search-type" data-type="1"> Näyttelijä</label>
+            </div>
+        </div>
+        <input type="text" size="57" placeholder="Hae videot hakusanalla" height="50">
+        <input type="button" id="clear-btn" value="&Cross;" hidden>
+    </span>
+    <span>Kategoria:</span>
+    <%- include('options', {isActor:isActor}) %>
+</div>
