@@ -1,0 +1,7 @@
+<div class="actor-container">
+    <% actors.forEach(actor => { %>
+        <div class="actor-item">
+            <%- include('actorItemContent', {id:actor.actor_id, first_name:actor.first_name, last_name:actor.last_name}) %>
+        </div>
+    <% }) %>
+</div>
