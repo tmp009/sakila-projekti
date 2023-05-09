@@ -104,5 +104,13 @@
         "where film_actor.actor_id=? and film_actor.film_id=film.film_id", 
         "and category.category_id=film_category.category_id and (film_category.film_id=film.film_id)",
         "and (upper(category.name)=upper(?) or ?='')"
+    ],
+    "getActorName":[
+        "select CONCAT(",
+        "upper(substring(first_name,1,1)),",
+        "lower(substring(first_name,2)), ' ',",
+        "upper(substring(last_name,1,1)),",
+        "lower(substring(last_name,2)))",
+        "as name from actor where actor_id=?"
     ]
 }

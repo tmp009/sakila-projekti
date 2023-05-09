@@ -201,8 +201,24 @@ function actorMovieCount(id, category='') {
     });
 }
 
+function getActorName(id) {
+    return new Promise((resolve, reject)=> {
+        let con = mysql.createConnection(dbconfig);
+        con.connect();
+
+        con.query(sqlQuery.getActorName.join(' '), id, (err, rows, cols) => {
+            if (err) {
+                reject(err.message)
+            }
+
+            con.end();
+            resolve(rows[0].name);
+        })
+    });
+}
+
 module.exports = {getMovieByCategory, getMovie, getMovieById,
                 searchMovie, getMovieCount, getMovieCountSearch,
                 actorNameSearch, actorNameSearchCount, getMovieByActorId,
-                actorMovieCount
+                actorMovieCount, getActorName
                 };
