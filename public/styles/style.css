@@ -8,6 +8,10 @@ body{
     background-image: linear-gradient(to right, rgb(112, 164, 183), skyblue, rgb(107, 206, 245), rgb(111, 136, 143));
 }
 
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
 #site-content{
     text-align: center;
     position: relative;

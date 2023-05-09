@@ -52,12 +52,12 @@ document.getElementById('clear-btn').addEventListener('click', (e)=>{
 
 dropdown.querySelector('input[data-type="0"]').addEventListener('input', ()=>{
     const search = document.getElementById('search-bar').querySelector('input[type="text"]')
-    search.placeholder = 'Hae videot hakusanalla';
+    search.placeholder = 'Hae videot';
 });
 
 dropdown.querySelector('input[data-type="1"]').addEventListener('input', ()=>{
     const search = document.getElementById('search-bar').querySelector('input[type="text"]')
-    search.placeholder = 'Hae näyttelijät hakusanalla';
+    search.placeholder = 'Hae näyttelijät';
 });
 
 function showClearButton(search) {
